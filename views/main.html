@@ -1,0 +1,16 @@
+<div class="case">
+  <!-- this is the thing -->
+  <calendar-dial date="date" config="config"></calendar-dial>
+</div>
+
+<div class="output">
+  <span data-title="before today ok" class="tooltip" ng-class="{'show-tooltip': config.allowBeforeToday}">
+    <i tap="config.allowBeforeToday = !config.allowBeforeToday" class="fa fa-history fa-fw fa-lg" ng-class="{'fg-ok': config.allowBeforeToday}"></i>
+  </span>
+  <span>
+    <i ng-click="reset()" class="fa fa-refresh fa-fw fa-lg"></i>
+  </span>
+  <span data-title="weekend alert" class="tooltip" ng-class="{'show-tooltip':config.useWeekendAlert}">
+    <i tap="config.useWeekendAlert = !config.useWeekendAlert" class="fa fa-exclamation-circle fa-fw fa-lg" ng-class="{'fg-alert': config.useWeekendAlert}"></i>
+  </span>
+</div>

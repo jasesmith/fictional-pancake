@@ -1,0 +1,271 @@
+$primary: #9BCE5F;
+$light: #fff;
+$warning: #FF3B80;
+$alert: #FFF048;
+$ok: #9BCE5F;
+$timing: .3s;
+
+.fg-alert {
+  color: $alert;
+}
+
+.fg-warning {
+  color: $warning;
+}
+
+.fg-ok {
+  color: $ok;
+}
+
+.bezel {
+  font-size: 65vmin;
+  width: 1em;
+  height: 1em;
+  position: relative;
+  line-height: 1;
+  color: inherit; /* inherit from parent element or set explicitly: $light */
+  border-radius: 100%;
+  transition: background $timing ease-out;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: scale(1.05);
+    border: .04em solid;
+    border-radius: 100%;
+  }
+  // just because we can, doesn't mean we should, unless we should.
+  // &.is-weekend {background: #FFF048;}
+  // &.weekday-1 {color: #FF703A;} // monday
+  // &.weekday-2 {color: #FBA900;} // tuesday
+  // &.weekday-3 {color: #FFF048;} // wednesday
+  // &.weekday-4 {color: #63BC66;} // thursday
+  // &.weekday-5 {color: #19A79A;} // friday
+  // &.weekday-6 {color: #FFF048;} //color: #7E53C5;} // saturday
+  // &.weekday-7 {color: #FFF048;} //color: #FF3B80;} // sunday
+  &.is-past {
+    background: $warning;
+  }
+  .lcd {
+    position: absolute;
+    z-index: 1;
+    top: 65%;
+    left: 50%;
+    width: 100%;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 80%;
+    font-family: "DIN Condensed", Impact, Helvetica, sans-serif;
+    user-select: none;
+    white-space: nowrap;
+    pointer-events: auto;
+    -webkit-font-smoothing: subpixel-antialiased;
+    transition:
+    color $timing ease-out,
+    background $timing ease-out,
+    top $timing ease-out;
+    > div {
+      position: relative;
+    }
+  }
+  .date {
+    font-size: 15%;
+  }
+  .day {
+    font-size: 25%;
+  }
+  .when {
+    font-size: 13%;
+    text-transform: uppercase;
+    opacity: .6;
+  }
+  .icon {
+    line-height: 1;
+    font-size: 20%;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transition: $timing ease-out;
+    &.weekend-alert {
+      opacity: 0;
+      color: $alert;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+    &.calendar-action {
+      opacity: 1;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &.is-weekend {
+    .calendar-action {opacity: 0;}
+    .weekend-alert {opacity: 1;}
+  }
+  .crown {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    bottom: 50%;
+    left: 50%;
+    transition: transform $timing*2 ease-out;
+    transform-origin: center bottom;
+    pointer-events: none;
+    > span {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      text-align: center;
+      pointer-events: auto;
+      // transition: transform $timing/2 ease-out; // too much fun
+      font-family: "DIN Alternate", Impact, Helvetica, sans-serif;
+    }
+    &.step {
+      z-index: 1;
+      > span {
+        font-size: 8.5%;
+        line-height: 2.2;
+        cursor: pointer;
+        background: $primary;
+        transform: translate(-50%, -50%) rotate(0deg);
+        box-shadow: 0 0 0 .2em currentColor;
+        border-radius: 2em;
+        width: 2.2em;
+        height: 2.2em;
+      }
+    }
+    &.today > span {
+      font-size: 6%;
+      color: #fff;
+      background: currentColor;
+      transform: translate(-50%, -50%) rotate(45deg);
+      box-shadow: 0 0 0 .15em $primary;
+      border-radius: 1em;
+      width: 1em;
+      height: 1em;
+      span {
+        position: absolute;
+        blend-mode: screen;
+        top: 50%;
+        left: 300%;
+        line-height: 2;
+        -webkit-font-smoothing: subpixel-antialiased;
+        transform: translate(-50%, -50%) rotate(0deg);
+        border-radius: 2em;
+        width: 2em;
+        height: 2em;
+      }
+    }
+  }
+
+  // ACTIVE
+  &.active {
+    .crown {
+      transition: none;
+    }
+  }
+
+  // TOUCH BOX
+  &.touch {
+    z-index: 0;
+    .icon {
+      top: 50%;
+      &.calendar-action {
+        opacity: 0;
+      }
+    }
+    .lcd {
+      top: 0%;
+      background: rgba(#000, .05);
+      pointer-events: none;
+      padding: .1em;
+      line-height: 1;
+      z-index: 2;
+      left: 50%;
+      width: 120%;
+      transform: translate(-50%, -50%);
+      border-radius: .05em;
+      backdrop-filter: blur(.05em);
+    }
+  }
+}
+
+// general layout
+// BORING
+body {
+  background: $primary;
+  color: $light;
+}
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.output {
+  text-align: center;
+  display: flex;
+  flex-direction:row;
+  justify-content: space-around;
+  align-items: center;
+  background: #343439; //rgba($light, .3);
+  padding: 1em 0;
+  > span {
+    position: relative;
+  }
+}
+
+.case {
+  flex: 1;
+  display: flex;
+  flex-direction:row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.config {
+  display:flex;
+  flex-direction:row;
+  flex: none;
+}
+
+.tooltip {
+  &::before,
+  &::after {
+    opacity: 0;
+    pointer-events: none;
+    font-size: 4vmin;
+    white-space: nowrap;
+    position: absolute;
+    left: 50%;
+    transition: .5s linear;
+    bottom: 50%;
+  }
+  &::after {
+    content: attr(data-title);
+    background: #000;
+    padding: .5em;
+    border-radius: .3em;
+    transform: translate(-50%, -40%);
+  }
+  &::before {
+    content: '';
+    transform: translate(-50%, 0%);
+    border: .5em solid transparent;
+    border-top-color: #000;
+  }
+  &.show-tooltip {
+    &::before,
+    &::after {
+      bottom: 100%;
+      opacity: 1;
+    }
+  }
+}
