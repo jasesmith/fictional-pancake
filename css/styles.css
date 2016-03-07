@@ -175,7 +175,8 @@ body {
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
-          flex-direction: column; }
+          flex-direction: column;
+  font-size: 5vmin; }
 
 input,
 button,
